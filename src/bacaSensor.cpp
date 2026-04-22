@@ -1,17 +1,16 @@
 #include <Arduino.h>
 #include "bacaSensor.h"
 
-
 int sensorADC[JUMLAH_SENSOR];
-
 int sensorADCMid[JUMLAH_SENSOR_MID];
 int sensorDigitalMid[JUMLAH_SENSOR_MID];
 int treshold = 500;
-int sumOnSensor;
-int sensorWight;
-int bitsensor;
+int sumOnSensor = 0;
+int sensorWight = 0;
+int bitsensor = 0;
 int WeightValue[JUMLAH_SENSOR_MID] = { 10, 20, 30, 40, 50, 60, 70, 80 };
 int bitWeight[JUMLAH_SENSOR_MID] = { 1, 2, 4, 8, 16, 32, 64, 128 };
+
 
 void initBacaSensor() {
     pinMode(SEL_A, OUTPUT);
