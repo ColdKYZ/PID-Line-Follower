@@ -9,6 +9,7 @@ int sensorADC[JUMLAH_SENSOR];
 int sensorDigital[JUMLAH_SENSOR];
 int treshold = 500;
 
+
 int P, I, D, prevError, error;
 
 void bacaSensor() {
@@ -41,12 +42,12 @@ void bacaSensor() {
   sensorADC[10] = analogRead(35);
 
   for(int i = 0; i < JUMLAH_SENSOR; i++) {
-    if (sensorADC[i] < 500) {
+    if (sensorADC[i] < treshold) {
       sensorDigital[i] = 0;
     } else {
       sensorDigital[i] = 1;
     }
-
+    Serial.print(sensorDigital[i]);
   }
 }
 
@@ -62,13 +63,5 @@ void setup() {
 
 void loop() {
   bacaSensor();
-
-  // Tampilkan semua sensor
-  for (int i = 0; i < JUMLAH_SENSOR; i++) {
-    Serial.print(sensorDigital[i]);
-    Serial.print("\t"); // biar rapi (tab)
-  }
-  Serial.println();
-
   delay(100);
 }
