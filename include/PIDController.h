@@ -1,3 +1,3 @@
 #pragma once
 
-void PID();
+void PID(float base_speed, float Kp, float Kd);

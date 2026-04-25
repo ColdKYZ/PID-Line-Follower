@@ -3,6 +3,9 @@
 #include "PIDController.h"
 #include "motorControl.h"
 
+int base_speed = 170;
+float Kp = 1.7;
+float Kd = 2.3;
 
 
 void setup() {
@@ -15,7 +18,5 @@ void loop() {
   // bacaSensor(); 
   // bacaMid();
   // side_callibrate();
-  // motorForward(150, 150);
-  PID();
-  delay(100);
+  PID(base_speed, Kp, Kd);
 }

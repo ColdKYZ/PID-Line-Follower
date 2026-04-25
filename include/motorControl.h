@@ -11,7 +11,8 @@
 #define RIGHT_BACKWARD 17
 
 // PWM Configuration
-#define PWM_FREQ 20000
+#define PWM_FREQ_LEFT 3300
+#define PWM_FREQ_RIGHT 2220
 #define PWM_RESOLUTION 8
 #define PWM_MAX 255
 
@@ -20,9 +21,9 @@
 #define CH_RIGHT 1
 
 void initMotorControl();
-void motorForward(int speedLeft, int speedRight);
-void motorBackward(int speedLeft, int speedRight);
-void motorTurnLeft(int speedLeft, int speedRight);
-void motorTurnRight(int speedLeft, int speedRight);
+void motorForward(float speedLeft, float speedRight);
+void motorBackward(float speedLeft, float speedRight);
+void motorTurnLeft(float speedLeft, float speedRight);
+void motorTurnRight(float speedLeft, float speedRight);
 void motorStop();
-void setMotorSpeed(int leftSpeed, int rightSpeed);
+void setMotorSpeed(float leftSpeed, float rightSpeed);

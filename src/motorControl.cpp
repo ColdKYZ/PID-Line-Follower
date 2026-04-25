@@ -9,8 +9,8 @@ void initMotorControl() {
   pinMode(RIGHT_BACKWARD, OUTPUT);
 
   // Setup PWM untuk motor left dan right
-  ledcSetup(CH_LEFT, PWM_FREQ, PWM_RESOLUTION);
-  ledcSetup(CH_RIGHT, PWM_FREQ, PWM_RESOLUTION);
+  ledcSetup(CH_LEFT, PWM_FREQ_LEFT, PWM_RESOLUTION);
+  ledcSetup(CH_RIGHT, PWM_FREQ_RIGHT, PWM_RESOLUTION);
 
   // Attach PWM ke pin enable
   ledcAttachPin(LEFT_EN, CH_LEFT);
@@ -20,8 +20,30 @@ void initMotorControl() {
   motorStop();
 }
 
-void setMotorSpeed(int leftSpeed, int rightSpeed) {
-  // Clamp nilai PWM antara 0-255
+
+void setMotorSpeed(float leftSpeed, float rightSpeed) {
+
+  // ===== MOTOR KIRI =====
+  if (leftSpeed >= 0) {
+    digitalWrite(LEFT_FORWARD, HIGH);
+    digitalWrite(LEFT_BACKWARD, LOW);
+  } else {
+    digitalWrite(LEFT_FORWARD, LOW);
+    digitalWrite(LEFT_BACKWARD, HIGH);
+    leftSpeed = -leftSpeed;
+  }
+
+  // ===== MOTOR KANAN =====
+  if (rightSpeed >= 0) {
+    digitalWrite(RIGHT_FORWARD, HIGH);
+    digitalWrite(RIGHT_BACKWARD, LOW);
+  } else {
+    digitalWrite(RIGHT_FORWARD, LOW);
+    digitalWrite(RIGHT_BACKWARD, HIGH);
+    rightSpeed = -rightSpeed;
+  }
+
+  // Clamp setelah jadi positif
   leftSpeed = constrain(leftSpeed, 0, PWM_MAX);
   rightSpeed = constrain(rightSpeed, 0, PWM_MAX);
 
@@ -29,7 +51,7 @@ void setMotorSpeed(int leftSpeed, int rightSpeed) {
   ledcWrite(CH_RIGHT, rightSpeed);
 }
 
-void motorForward(int speedLeft, int speedRight) {
+void motorForward(float speedLeft, float speedRight) {
   digitalWrite(LEFT_FORWARD, HIGH);
   digitalWrite(LEFT_BACKWARD, LOW);
 
@@ -39,7 +61,7 @@ void motorForward(int speedLeft, int speedRight) {
   setMotorSpeed(speedLeft, speedRight);
 }
 
-void motorBackward(int speedLeft, int speedRight) {
+void motorBackward(float speedLeft, float speedRight) {
   digitalWrite(LEFT_FORWARD, LOW);
   digitalWrite(LEFT_BACKWARD, HIGH);
 
@@ -49,7 +71,7 @@ void motorBackward(int speedLeft, int speedRight) {
   setMotorSpeed(speedLeft, speedRight);
 }
 
-void motorTurnLeft(int speedLeft, int speedRight) {
+void motorTurnLeft(float speedLeft, float speedRight) {
   // Motor kiri mundur, motor kanan maju
   digitalWrite(LEFT_FORWARD, LOW);
   digitalWrite(LEFT_BACKWARD, HIGH);
@@ -60,7 +82,7 @@ void motorTurnLeft(int speedLeft, int speedRight) {
   setMotorSpeed(speedLeft, speedRight);
 }
 
-void motorTurnRight(int speedLeft, int speedRight) {
+void motorTurnRight(float speedLeft, float speedRight) {
   // Motor kiri maju, motor kanan mundur
   digitalWrite(LEFT_FORWARD, HIGH);
   digitalWrite(LEFT_BACKWARD, LOW);
